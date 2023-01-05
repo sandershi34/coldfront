@@ -53,7 +53,7 @@ class Grant(TimeStampedModel):
     grant_end = models.DateField('Grant End Date')
     percent_credit = models.FloatField(validators=[MaxValueValidator(100)])
     direct_funding = models.FloatField()
-    total_amount_awarded = models.FloatField()
+    total_amount_awarded = models.CharField(max_length=255)
     status = models.ForeignKey(GrantStatusChoice, on_delete=models.CASCADE)
     history = HistoricalRecords()
 

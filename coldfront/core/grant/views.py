@@ -1,4 +1,5 @@
 import csv
+import re
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -43,6 +44,17 @@ class GrantCreateView(LoginRequiredMixin, UserPassesTestMixin, FormView):
             return HttpResponseRedirect(reverse('project-detail', kwargs={'pk': project_obj.pk}))
         else:
             return super().dispatch(request, *args, **kwargs)
+    
+    def parse_Currency(self,text):
+        text = text.replace(',','')                                  # removes commas
+
+        text = ''.join([c for c in text if c.isdigit() or c == '.']) #removes characters from string
+
+        match = re.search(r'\b\d+\.?\d*\b',text)                     #finds first and last instance of digits and combined with . if exists
+        if match:
+            return match.group()
+        else:
+            messages(self.request,"Please Enter a Valid Number")
 
     def form_valid(self, form):
         form_data = form.cleaned_data
@@ -60,7 +72,7 @@ class GrantCreateView(LoginRequiredMixin, UserPassesTestMixin, FormView):
             grant_end=form_data.get('grant_end'),
             percent_credit=form_data.get('percent_credit'),
             direct_funding=form_data.get('direct_funding'),
-            total_amount_awarded=form_data.get('total_amount_awarded'),
+            total_amount_awarded='$'+self.parse_Currency(form_data.get('total_amount_awarded')),
             status=form_data.get('status'),
         )
 

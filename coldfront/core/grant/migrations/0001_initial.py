@@ -59,7 +59,7 @@ class Migration(migrations.Migration):
                 ('grant_end', models.DateField(verbose_name='Grant End Date')),
                 ('percent_credit', models.FloatField(validators=[django.core.validators.MaxValueValidator(100)])),
                 ('direct_funding', models.FloatField()),
-                ('total_amount_awarded', models.FloatField()),
+                ('total_amount_awarded', models.CharField()),
                 ('history_id', models.AutoField(primary_key=True, serialize=False)),
                 ('history_date', models.DateTimeField()),
                 ('history_change_reason', models.CharField(max_length=100, null=True)),

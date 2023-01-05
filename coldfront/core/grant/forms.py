@@ -42,7 +42,7 @@ class GrantDownloadForm(forms.Form):
     pi_last_name = forms.CharField(required=False, disabled=True)
     role = forms.CharField(required=False, disabled=True)
     grant_pi = forms.CharField(required=False, disabled=True)
-    total_amount_awarded = forms.FloatField(required=False, disabled=True)
+    total_amount_awarded = forms.CharField(required=False, disabled=True)
     funding_agency = forms.CharField(required=False, disabled=True)
     grant_number = forms.CharField(required=False, disabled=True)
     grant_start = forms.DateField(required=False, disabled=True)
